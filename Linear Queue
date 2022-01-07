@@ -1,0 +1,47 @@
+size = int(input("Enter size of the Queue: "))
+queue = [None for i in range(size)]
+front = 0
+end = -1
+queuefull = size - 1
+
+
+def enqueue(x):
+    global end
+    if end != queuefull:
+        end += 1
+        queue[end] = x
+    else:
+        print("Queue is Full, can't Enqueue")
+
+
+def dequeue():
+    global front
+    if front != queuefull + 1:
+        queue[front] = None
+        front += 1
+    else:
+        print("Queue is Empty, can't Dequeue")
+
+
+while True:
+    menu = int(input(f"""Choose an option
+1. Enqueue
+2. Dequeue
+3. Display
+4. Exit
+
+Queue: {queue[front:end + 1]}
+-> """))
+    if menu == 1:
+        item = int(input("Enter item to Enqueue:"))
+        enqueue(item)
+    elif menu == 2:
+        dequeue()
+    elif menu == 3:
+        print(queue)
+    elif menu == 4:
+        break
+    else:
+        print("Enter a value between 1 - 4")
+
+
