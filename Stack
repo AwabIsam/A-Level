@@ -1,0 +1,46 @@
+size = int(input("Enter the size of the Stack: "))
+stack = [None for i in range(size)]
+top = -1
+base = 0
+stackfull = size - 1
+item = None
+
+
+def push(x):
+    global top
+    if top != stackfull:
+        top += 1
+        stack[top] = x
+    else:
+        print("Stack is Full, can't Push")
+
+
+def pop():
+    global top, base
+    if top != base - 1:
+        stack[top] = None
+        top -= 1
+    else:
+        print("Stack is Empty, can't Pop")
+
+
+while True:
+    menu = int(input(f"""Choose an option:
+1. Push
+2. Pop
+3. Display
+4. Exit
+
+Stack: {stack[base:top + 1]}
+→ """))
+    if menu == 1:
+        item = int(input("Enter item to push"))
+        push(item)
+    elif menu == 2:
+        pop()
+    elif menu == 3:
+        print(stack)
+    elif menu == 4:
+        break
+    else:
+        print("Enter a value between 1 - 4: ")
