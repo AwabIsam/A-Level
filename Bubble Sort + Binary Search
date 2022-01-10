@@ -1,0 +1,50 @@
+def bubbles(a):
+    for i in range(len(a)):
+        for j in range(len(a) - 1):
+            if a[j] > a[j+1]:
+                a[j], a[j+1] = a[j+1], a[j]
+    return a
+
+
+a = []
+n = int(input("How many values do you wish to enter"))
+for g in range(n):
+    a.append(int(input("Enter a number")))
+
+print(a)
+sa = bubbles(a)
+print(sa)
+
+
+flag = 1 or 0
+
+
+def binarys(sa, k):
+    lb = 0
+    ub = int(len(sa)-1)
+    global flag
+    flag = 0
+    for i in range(len(sa)):
+        mid = int((lb + ub) / 2)
+        if k == sa[mid]:
+            flag = 1
+            print("Item", k, "Was found in position", mid + 1)
+            break
+        elif k > sa[mid]:
+            lb = mid + 1
+        elif k < sa[mid]:
+            ub = mid - 1
+    if flag == 0:
+        print("Item", k, "was not found")
+
+
+k = int(input("Which item do you wish to search for"))
+
+print(binarys(sa, k))
+
+
+
+
+
+
+
