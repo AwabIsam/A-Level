@@ -1,91 +1,85 @@
-n = int(input("How many values do you wish to enter: "))
+size = int(input("Enter size of the Linked List: "))
 
-mll = [None for i in range(0, n)]
-mllp = [None for i in range(0, n)]
-
-for i in range(0, n):
-    mllp[i] = i + 1
-
-
-mllp[n - 1] = -1
-sp = -1
-hp = 0
-np = -1
-temp = 0
-itemp = -1
+linkedlist = [None for i in range(size)]
+listpointers = [i + 1 for i in range(size + 2)]
+startpointer = -1
+null = -1
+heappointer = 0
+oldindex = startpointer
+initial_run = True
 
 
-def insert(x):
-    global sp, hp, np, temp, itemp
-    if hp != np:
-        itemp = itemp + 1
-        temp = sp
-        sp = hp
-        hp = mllp[hp]
-        mll[sp] = x
-        mllp[sp] = temp
-        print(hp, ",", sp, ",", temp)
-        print(mll)
-        print(mllp)
-        print("Item Position : ", itemp)
+def add(x):
+    global startpointer, heappointer, listpointers, initial_run
+    if heappointer != null and heappointer != size:
+        temp = startpointer
+        startpointer = heappointer
+        heappointer = listpointers[heappointer]
+        linkedlist[startpointer] = x
+        listpointers[startpointer] = temp
+        if initial_run:
+            listpointers[0], listpointers[-1] = null, null
+            initial_run = False
     else:
-        print("Linked List is Full - can't insert")
+        print("Linked List is Full - can't Insert")
 
 
-found = False
-
-
-def searchll(xs):
-    global itemp, sp, np, found
-    found = False
-    itemp = sp
-    while itemp != np and not found:
-        if mll[itemp] == xs:
-            found = True
+def remove(x):
+    global startpointer, heappointer, oldindex
+    if startpointer != null:
+        index = startpointer
+        while linkedlist[index] != x and index != null:
+            oldindex = index
+            index = listpointers[index]
+        if index == null:
+            print(x, "not found")
         else:
-            itemp = mllp[itemp]
-
-    if found:
-        print(mll)
-        print("Item found in position : ", itemp + 1)
+            linkedlist[index] = None
+            temp = listpointers[index]
+            listpointers[index] = heappointer
+            heappointer = index
+            listpointers[oldindex] = temp
     else:
-        print(mll)
-        print("Item not found")
-    return itemp
+        print("Linked List is Empty, can't Delete")
 
 
-def delete():
-    global sp, hp, temp, itemp
-    if hp != np:
-        mllp[sp] = hp
-        mll[sp] = None
-        sp = sp - 1
-        hp = sp + 1
-        temp = mll[hp]
-        itemp = itemp - 1
-        print(hp, ",", sp, ",", temp)
-        print(mll)
-        print(mllp)
-        print("Item Position : ", itemp)
+def search(key):
+    for n in range(len(linkedlist)):
+        if linkedlist[n] == key:
+            print('Found at position', n + 1)
+            break
     else:
-        print("Linked list is Empty - can't delete")
+        print('Not found')
 
 
-c = "Y"
-while c == "Y" or "y":
-    print("Linked List")
-    print("------")
-    print("1. insert")
-    print("2. delete")
-    print("3. search")
-    ch = int(input("Enter a Choice"))
-    if ch == 1:
-        item = int(input("Enter value : "))
-        insert(item)
-    elif ch == 2:
-        delete()
-    elif ch == 3:
-        items = int(input("Enter item to search"))
-        searchll(items)
+while True:
+    menu = int(input(f"""Choose an option:
+1. Add
+2. Delete
+3. Search
+4. Display
+5. Exit
 
-    c = input("Do you wish to continue?(Y/N)")
+Linked List: {linkedlist}
+List Pointers: {listpointers}
+-> """))
+    if menu == 1:
+        item = int(input("Enter item to be Inserted: "))
+        add(item)
+        print(startpointer)
+        print(heappointer)
+    elif menu == 2:
+        item = int(input("Enter item to be Deleted: "))
+        remove(item)
+        print(startpointer)
+        print(heappointer)
+    elif menu == 3:
+        value = int(input("Enter item to Search: "))
+        search(value)
+    elif menu == 4:
+        print(linkedlist)
+        print(listpointers)
+    elif menu == 5:
+        break
+    else:
+        print("Enter a value between 1 - 4")
