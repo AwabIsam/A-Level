@@ -1,0 +1,71 @@
+class node:
+    def __init__(self, value = None, address = None):
+        self.element = value
+        self.address = address
+        
+        
+nullp = -1
+size = int(input("Enter the size of your Linked List: "))
+linkedlist = [node() for i in range(size)]
+startp = -1
+freenode = 0
+
+for i in range(size):
+    linkedlist[i].address = i + 1
+linkedlist[-1].address = nullp
+
+
+def add(item):
+    global startp, freenode
+    if freenode != nullp:
+        linkedlist[freenode].element = item
+        freenode = linkedlist[freenode].address
+    else:
+        print("Linked List is full can't Add - Overflow")
+        
+        
+def delete(item):
+    global startp, freenode
+    for i in range(size):
+        if item == linkedlist[i].element:
+            
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+c = "Y"
+while c == "Y" or "y":
+    print("Linked List")
+    print("-----------")
+    print("1. Add")
+    print("2. Search")
+    print("3. Exit")
+    ch = int(input("Enter a choice: "))
+    if ch == 1:
+        item = int(input("Enter value: "))
+        add(item)
+        print(freenode)
+    elif ch == 2:
+        items = int(input("Enter item to search"))
+        search(items)
+    elif 3:
+        break
+        
+for i in range(size):
+    print(linkedlist[i].element)
+    print(linkedlist[i].address)
+    
