@@ -23,49 +23,44 @@ def add(item):
     else:
         print("Linked List is full can't Add - Overflow")
         
-        
+    
+
 def delete(item):
     global startp, freenode
-    for i in range(size):
-        if item == linkedlist[i].element:
+    while True:
+        for i in range(size):
+            if linkedlist[i].element == item:
+                deletionp = i
+        else:
+            print("Item not Present")
+            break
+    if deletionp != nullp:
+        linkedlist[deletionp].element = None
+        freenode = deletionp
             
 
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
 c = "Y"
 while c == "Y" or "y":
-    print("Linked List")
+    print("\nLinked List")
     print("-----------")
     print("1. Add")
-    print("2. Search")
+    print("2. Delete")
     print("3. Exit")
     ch = int(input("Enter a choice: "))
     if ch == 1:
         item = int(input("Enter value: "))
         add(item)
-        print(freenode)
+        for i in range(len(linkedlist)):
+            print(linkedlist[i].element, end=' ')
+        for i in range(len(linkedlist)):
+            print(linkedlist[i].address, end=' ')
     elif ch == 2:
-        items = int(input("Enter item to search"))
-        search(items)
+        item = int(input("Enter element to be removed: "))
+        delete(item)
+        for i in range(len(linkedlist)):
+            print(linkedlist[i].element, end=' ')
+        for i in range(len(linkedlist)):
+            print(linkedlist[i].address, end=' ')
     elif 3:
-        break
-        
-for i in range(size):
-    print(linkedlist[i].element)
-    print(linkedlist[i].address)
-    
+            break
