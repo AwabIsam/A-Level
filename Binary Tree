@@ -1,0 +1,86 @@
+class Node:
+    def __init__(self, root):
+        self.root = root
+        self.left = None
+        self.right = None
+
+    def insert(self, element):
+        if self.root is None:
+            self.root = element
+        elif element < self.root:
+            if self.left:
+                self.left.insert(element)
+            else:
+                self.left.Node(element)
+        else:
+            if self.right:
+                self.right.insert(element)
+            else:
+                self.right.Node(element)
+
+    def search(self, key):
+        if key == self.root:
+            print("Node found")
+        elif key < self.root:
+            if self.left:
+                self.left.search(key)
+            else:
+                print("Node is not present in the tree")
+        else:
+            if self.right:
+                self.right.search(key)
+            else:
+                print("Node is not present in the tree")
+
+
+def inorder(r):
+    if r:
+        inorder(r.left)
+        print(r.key)
+        inorder(r.right)
+
+
+def preorder(r):
+    if r:
+        print(r.key)
+        preorder(r.left)
+        preorder(r.right)
+
+
+def postorder(r):
+    if r:
+        postorder(r.left)
+        postorder(r.right)
+        print(r.key)
+
+
+root = Node(10)
+data = [6, 3, 1, 6, 98, 3, 7]
+for nodes in data:
+    root.insert(nodes)
+
+while True:
+    try:
+        opt = int(input("""
+Choose an option:
+1. Search for a node
+2. Display nodes
+3. exit    
+> """))
+        if opt == 1:
+            node = int(input("Enter the node you are looking for: "))
+            root.search(node)
+        elif opt == 2:
+            t = int(input("1. Inorder, 2. Pre-order, 3. Post-order: "))
+            print("")
+            if t == 1:
+                inorder(root)
+            elif t == 2:
+                preorder(root)
+            elif t == 3:
+                postorder(root)
+        elif opt == 3:
+            exit()
+    except Exception as e:
+        print(e)
+        
