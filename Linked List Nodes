@@ -1,0 +1,90 @@
+class Node:
+    def __init__(self, element=None):
+        self.element = element
+        self.pointer = None
+
+
+class SLinkedList:
+    def __init__(self):
+        self.headval = None
+
+    def printlist(self):
+        printval = self.headval
+        while printval is not None:
+            print(printval.element)
+            printval = printval.pointer
+
+    def atbeginning(self, data):
+        newnode = Node(data)
+        newnode.pointer = self.headval
+        self.headval = newnode
+
+    def inbetween(self, middle_node, newdata):
+        if middle_node is None:
+            print("The mentioned node is absent")
+            return
+
+        NewNode = Node(newdata)
+        NewNode.pointer = middle_node.pointer
+        middle_node.pointer = NewNode
+
+    def atend(self, data):
+        newnode = Node(data)
+        if self.headval is None:
+            self.headval = newnode
+            return
+        laste = self.headval
+        while laste.pointer:
+            laste = laste.pointer
+        laste.pointer = newnode
+
+    def remove(self, key):
+        head = self.headval
+        if head is not None:
+            if head.element == key:
+                self.headval = head.pointer
+                head = None
+                return
+        while head is not None:
+            if head.element == key:
+                break
+            prev = head
+            head = head.pointer
+        if head is None:
+            return
+        prev.pointer = head.pointer
+        head = None
+
+
+LinkedList = SLinkedList()
+while True:
+    try:
+        opt = int(input("""
+Choose an option:
+1. Add at Beginning
+2. Add in Middle
+3. Add at End
+4. Print
+5. Exit
+-> """))
+        if opt == 1:
+            item = input('Enter item to Add: ')
+            LinkedList.atbeginning(item)
+            LinkedList.printlist()
+        elif opt == 2:
+            item = input("Enter item to Add: ")
+            midval = int(input("Enter the Middle Node: "))
+            LinkedList.inbetween(midval, item)
+            LinkedList.printlist()
+        elif opt == 3:
+            item = input("Enter item to Add: ")
+            LinkedList.atend(item)
+            LinkedList.printlist()
+        elif opt == 4:
+            LinkedList.printlist()
+        elif opt == 5:
+            break
+        else:
+            print("Enter Value Between 1 - 5")
+    except Exception as e:
+        print(e)
