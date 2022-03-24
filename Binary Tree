@@ -11,12 +11,12 @@ class Node:
             if self.left:
                 self.left.insert(element)
             else:
-                self.left.Node(element)
+                self.left = Node(element)
         else:
             if self.right:
                 self.right.insert(element)
             else:
-                self.right.Node(element)
+                self.right = Node(element)
 
     def search(self, key):
         if key == self.root:
@@ -36,13 +36,13 @@ class Node:
 def inorder(r):
     if r:
         inorder(r.left)
-        print(r.key)
+        print(r.root)
         inorder(r.right)
 
 
 def preorder(r):
     if r:
-        print(r.key)
+        print(r.root)
         preorder(r.left)
         preorder(r.right)
 
@@ -51,13 +51,13 @@ def postorder(r):
     if r:
         postorder(r.left)
         postorder(r.right)
-        print(r.key)
+        print(r.root)
 
 
-root = Node(10)
+Tree = Node(10)
 data = [6, 3, 1, 6, 98, 3, 7]
 for nodes in data:
-    root.insert(nodes)
+    Tree.insert(nodes)
 
 while True:
     try:
@@ -69,18 +69,17 @@ Choose an option:
 > """))
         if opt == 1:
             node = int(input("Enter the node you are looking for: "))
-            root.search(node)
+            Tree.search(node)
         elif opt == 2:
             t = int(input("1. Inorder, 2. Pre-order, 3. Post-order: "))
             print("")
             if t == 1:
-                inorder(root)
+                inorder(Tree)
             elif t == 2:
-                preorder(root)
+                preorder(Tree)
             elif t == 3:
-                postorder(root)
+                postorder(Tree)
         elif opt == 3:
             exit()
     except Exception as e:
         print(e)
-        
