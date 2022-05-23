@@ -1,3 +1,6 @@
+from tkinter import Y
+
+
 class Picture():
     # Description STRING
     # Width INTEGER
@@ -5,8 +8,8 @@ class Picture():
     # FrameColour STRING
     def __init__(self, Description, Width, Height, Framecolour):
         self.__Description = Description 
-        self.__Width = Width
-        self.__Height = Height
+        self.__Width = int(Width)
+        self.__Height = int(Height)
         self.__FrameColour = Framecolour
 
     
@@ -26,46 +29,40 @@ class Picture():
         self.__Description = nDescription
 
 
-PictureArray = [Picture("", "", "", "") for i in range(100)]
+PictureArray = [Picture("", 0, 0, "") for i in range(100)]
 
 
 def ReadData():
-    i = 0
+    global PictureArray
+    y = 0
     filename = "Pictures.txt"
     try:
         with open(filename, "r") as file:
-            data = file.readline().strip()
-            while data != "" and i != 100:
-                Desc = data
-                Width = file.readline().strip()
-                Height = file.readline().strip()
-                FrameColour = file.readline().strip()
-                PictureArray[i] = Picture(Desc, Width, Height, FrameColour)
-                i += 1
-                desc = file.readline().strip()
+            data = file.readline().strip().lower()
+            while data != "" and y != 100:
+                Desc = data.lower()
+                Width = int(file.readline().strip())
+                Height = int(file.readline().strip())
+                FrameColour = file.readline().strip().lower()
+                PictureArray[y] = Picture(Desc, Width, Height, FrameColour)
+                y += 1
+                data = file.readline().strip().lower()
     except FileNotFoundError:
         print("File not found")
-    return i, PictureArray
+    return y, PictureArray
 
 
 NumofPic, PictureArray = ReadData()
 
-ColourofFrame = input("Enter Colour of Frame: ")
+ColourofFrame = input("Enter Colour of Frame: ").lower()
 WidthofPic = int(input("Enter Width: "))
 HeightofPic = int(input("Enter Height: "))
 
-found = False
 
 
 
 for x in range(NumofPic):
-    PFrame = PictureArray[x].GetColour
-    PWidth = PictureArray[x].GetWidth
-    PHeight = PictureArray[x].GetHeight
-    if ColourofFrame == PFrame:
-        if WidthofPic >= PWidth:
-            if HeightofPic >= PHeight:
-                print(PictureArray[x].GetDescription, PictureArray[x].GetWidth, PictureArray[x].GetHeight )
-else:
-    print("ssss")
-
+    if ColourofFrame == PictureArray[x].GetColour():
+        if WidthofPic >= PictureArray[x].GetWidth():
+            if HeightofPic >= PictureArray[x].GetHeight():
+                print(PictureArray[x].GetDescription(), PictureArray[x].GetWidth(), PictureArray[x].GetHeight())
