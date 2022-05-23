@@ -44,3 +44,12 @@ for X in range(0,10):
     ArrayNodes, RootPointer, FreeNode = AddNode(ArrayNodes,RootPointer,FreeNode)
     
 PrintAll(ArrayNodes)
+
+def InOrder(RootPointer):
+    if ArrayNodes[RootPointer][0] != -1:
+        InOrder(ArrayNodes[RootPointer][0])     
+    print(str(ArrayNodes[RootPointer][1]))    
+    if ArrayNodes[RootPointer][2] != -1:         
+        InOrder(ArrayNodes[RootPointer][2])
+
+InOrder(RootPointer)
